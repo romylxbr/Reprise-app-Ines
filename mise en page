@@ -1,0 +1,222 @@
+/* ==========================================================================
+   GLOBAL RESET & BASE
+   ========================================================================== */
+html, body { margin:0; padding:0; }
+:root{ --card-max-w: 680px; } /* 680 px ≃ 180 mm */
+body{
+  background:#191970;
+  color:#fff;
+  font-family:Arial, sans-serif;
+  text-align:center;
+  padding:2em;
+  box-sizing:border-box;
+}
+*,*::before,*::after{ box-sizing:inherit; }
+
+/* ==========================================================================
+   FORM & SHARED CARD
+   ========================================================================== */
+form,
+#planning{
+  background:#fff;
+  color:#000;
+  border-radius:8px;
+  padding:1.5em;
+  box-shadow:0 2px 8px rgba(0,0,0,.2);
+  margin:1em auto;
+  width:100%;
+  max-width:var(--card-max-w);
+  word-break:break-word;
+}
+input,button{
+  width:100%;
+  padding:.8em;
+  margin:.5em 0;
+  font-size:1em;
+  border:1px solid #ccc;
+  border-radius:4px;
+}
+button{
+  background:#0056b3;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+  transition:background-color .2s ease;
+}
+button:hover{ background:#003f7f; }
+#feedback{ color:#d33; min-height:1.2em; margin-top:.5em; }
+
+/* ==========================================================================
+   PLANNING WRAPPER
+   ========================================================================== */
+#planning{ margin:2em auto; text-align:left; }
+.planning-header{
+  font-style:italic;
+  text-align:center;
+  margin-bottom:1em;
+  color:#254a7d;
+}
+/* ───── En-tête du planning avec logo ──────────────────────────────── */
+.plan-header{
+  position:relative;
+  display:flex;
+  justify-content:center;  /* titres bien au centre */
+  align-items:flex-start;  /* on aligne le haut */
+  margin-bottom:1.5em;
+}
+
+.plan-titles h2,
+.plan-titles h3{
+  margin:0;
+  line-height:1.25;
+  color:#254a7d;           /* même bleu pour les deux lignes */
+}
+
+.plan-titles{
+  text-align:center;   /* ← centre h2 & h3 */
+}
+
+.plan-titles h2{ font-size:1.3em; font-weight:bold; }
+.plan-titles h3{ font-size:1.1em; font-weight:bold; }
+
+.plan-logo{
+  position:absolute;
+  top:-20px;                /* remonte un peu le logo */
+  right:0;
+  width:80px;              /* adapte si besoin */
+  height:auto;
+}
+
+/* ==========================================================================
+   SESSION BLOCK
+   ========================================================================== */
+.session{ margin-bottom:1em; }
+
+/* Blue header bar */
+.session-bar{
+  display:flex;
+  align-items:center;
+  flex-wrap:nowrap;
+  background:#254a7d;
+  color:#fff;
+  padding:.4em .8em;
+  border-radius:6px 6px 0 0;
+  font-weight:bold;
+  font-size:.95em;
+}
+.session-bar .session-title { flex:1 1 auto; text-align:left; }
+.session-bar .session-location{
+  flex:0 0 auto;
+  font-style:italic;
+  margin-right:.4em;
+  color:#6EC1FF;
+}
+.session-bar .session-time{ flex:0 0 auto; white-space:nowrap; }
+
+/* White body under bar */
+.session-body{
+  background:#fff;
+  list-style:disc inside;
+  margin:0;
+  padding:.8em 1em .8em 1.5em;
+  border:1px solid #ccc;
+  border-top:none;
+  border-radius:0 0 6px 6px;
+  color:#000;
+}
+.session-body li{ margin-bottom:.5em; line-height:1.4; }
+
+/* Footer */
+.session-footer{
+  background:#fff;
+  padding:.8em 1em;
+  border:1px solid #ccc;
+  border-top:none;
+  border-radius:0 0 6px 6px;
+  margin:0;
+  color:#000;
+  font-style:italic;
+}
+
+/* Highlights */
+.group-number{ color:#0056b3; font-weight:bold; }
+.room-name{ font-style:italic; margin-left:.25em; color:#6EC1FF !important; }
+
+/* ==========================================================================
+   DOWNLOAD BUTTON
+   ========================================================================== */
+#downloadPdf{
+  display:block;
+  margin:1.5em auto;
+  padding:.8em 1.2em;
+  background:#254a7d;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:1em;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  transition:background-color .2s ease;
+}
+#downloadPdf:hover{ background:#1e3f6f; }
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media(max-width:480px){
+  body{ padding:1em; }
+  form,#planning{ padding:1em; }
+  .session-bar,.session-body{ font-size:.9em; }
+}
+@media(max-width:320px){
+  form,#planning{ padding:.6em; }
+}
+
+/* ==================================================================
+   PRINT / PDF – compact & coupe propre
+   ================================================================== */
+@page { margin:5mm; }
+
+@media print{
+  #planning{
+    max-width:var(--card-max-w); /* 680 px ≈ 180 mm */
+    margin:0 auto;
+    font-size:0.9em;             /* réduit 10 % */
+  }
+  .session-bar{ padding:.25em .6em; font-size:.8em; }
+  .session-body{ padding:.5em .9em .5em 1.3em; }
+  .session-body li{ margin-bottom:.3em; }
+  .session{ break-inside:avoid; }
+  h1, #downloadPdf, form{ display:none; }
+}
+/* ——— Ajustement logo & titres en dessous de 500 px ——— */
+@media (max-width:500px){
+  /* réserve l’espace du logo à droite : */
+  .plan-header{ padding-right:70px; }     /* 70 px = largeur logo + marge */
+
+  /* logo plus petit et légèrement plus bas */
+  .plan-logo{
+    width:60px;        /* ↓ 80 → 60 px  */
+    top:-12px;         /* chevauche un peu moins */
+  }
+
+  /* légère réduction des titres pour garder deux lignes nettes */
+  .plan-titles h2{ font-size:1.15rem; }
+  .plan-titles h3{ font-size:.95rem; }
+}
+
+/* ——— Extra-petits téléphones (< 350 px) : on empile ——— */
+@media (max-width:350px){
+  .plan-header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding-right:0;          /* plus besoin d’espace réservé */
+  }
+  .plan-logo{
+    position:static;          /* passe dans le flux            */
+    width:55px;
+    margin-bottom:.5rem;
+  }
+}
