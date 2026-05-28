@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
         planning.appendChild(wrap);
 
         planning.style.display = "block";
-        attachDownload("planning_global_ines_majjad.pdf");
+        attachDownload("planning_global_romane_lebreton.pdf");
       }
 
       /* ───────────────────────────────────────────────────────── */
